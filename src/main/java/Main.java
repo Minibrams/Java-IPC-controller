@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        IPCController ipc = new IPCController("C:\\Users\\Brams\\AppData\\Local\\Programs\\Python\\Python36\\python.exe " + "IPCDemo.py");
-        ipc.setEndOfMessageSequence("quit");
+        IPCController ipc = new IPCController("IPCDemo.py", "python", "quit");
+
         ArrayList<String> message = new ArrayList<String>(Arrays.asList(
                 "please",
                 "make",
@@ -19,12 +19,12 @@ public class Main {
 
             ipc.start();
 
-            System.out.println("Sent message:");
+            System.out.println("Sending message from Java process:");
             for (String line : message)
                 System.out.println(line);
 
             ArrayList<String> returned = ipc.pipeMessage(message);
-            System.out.println("Received response:");
+            System.out.println("Received response from Python process:");
             for (String line : returned)
                 System.out.println(line);
 

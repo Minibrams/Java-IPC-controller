@@ -41,7 +41,6 @@ public class IPCController {
     public void start() throws IOException {
         //Execute and grab the process
         _process = Runtime.getRuntime().exec(_cmd);
-        System.out.println("PROCESS: " + _process.toString());
         //Establish IO communication streams
         _reader = new BufferedReader(new InputStreamReader(_process.getInputStream()));
         _writer = new BufferedWriter(new OutputStreamWriter(_process.getOutputStream()));
