@@ -1,19 +1,17 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
         IPCController ipc = new IPCController("IPCDemo.py", "python", "quit");
 
-        ArrayList<String> message = new ArrayList<String>(Arrays.asList(
+        String[] message = new String[] {
                 "please",
                 "make",
                 "this",
                 "upper",
                 "case",
                 "quit"
-        ));
+        };
 
         try {
 
@@ -23,7 +21,7 @@ public class Main {
             for (String line : message)
                 System.out.println(line);
 
-            ArrayList<String> returned = ipc.pipeMessage(message);
+            String[] returned = ipc.pipeMessage(message);
             System.out.println("Received response from Python process:");
             for (String line : returned)
                 System.out.println(line);

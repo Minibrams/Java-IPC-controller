@@ -70,7 +70,7 @@ public class IPCController {
     }
 
     /** Writes a message to the running process. Can only be called after start() has been called.*/
-    public void writeMessage(ArrayList<String> msg) throws IOException {
+    public void writeMessage(String[] msg) throws IOException {
         for (String line : msg)
             writeLine(line);
     }
@@ -88,7 +88,7 @@ public class IPCController {
 
     /** Reads an entire message from the input stream.
      *  Can only be called if a end-of-message sequence has been given. */
-    public ArrayList<String> readMessage() throws IOException {
+    public String[] readMessage() throws IOException {
         if (_endSequence == null) {
             throw new IllegalStateException("Cannot read message: IPCController has no end-of-message sequence defined.");
         }
@@ -101,14 +101,18 @@ public class IPCController {
                 current = readLine();
                 toReturn.add(current);
             }
-            return toReturn;
+
+            String[] arr = new String[toReturn.size()];
+            return toReturn.toArray(arr);
 
         } catch (NullPointerException e) {
             System.out.println("------------------------------------");
             System.out.println("       CLIENT PROCESS ENDED");
             System.out.println("           Ending read...");
             System.out.println("------------------------------------");
-            return toReturn;
+
+            String[] arr = new String[toReturn.size()];
+            return toReturn.toArray(arr);
         }
     }
 
@@ -122,13 +126,13 @@ public class IPCController {
     }
 
     /** Sends a message to the running process and returns the response message. */
-    public ArrayList<String> pipeMessage(ArrayList<String> msg) throws IOException {
+    public String[] pipeMessage(String[] msg) throws IOException {
         writeMessage(msg);
         return readMessage();
     }
 
     /** Sends a line to the running process and returns the response message. */
-    public ArrayList<String> pipeLine(String msg) throws IOException {
+    public String[] pipeLine(String msg) throws IOException {
         writeLine(msg);
         return readMessage();
     }
