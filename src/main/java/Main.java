@@ -39,6 +39,7 @@ public class Main {
             ipc.stop();
 
         } catch (IOException e) {
+            System.out.println("God dammit");
             System.out.println(e.getMessage());
             e.printStackTrace();
         }

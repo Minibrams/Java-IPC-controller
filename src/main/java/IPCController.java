@@ -16,7 +16,7 @@ public class IPCController {
      *  @param endSequence Name of the character sequence used by both processes to signal the end of a message stream. */
     public IPCController(String file, String compiler, String endSequence) {
         String dir = System.getProperty("user.dir");
-        _cmd = compiler + " " + dir + "\\" + file;
+        _cmd = compiler + " \"" + dir + "\\" + file + "\"";
         if (!endSequence.equals(""))
             _endSequence = endSequence;
         else
@@ -41,6 +41,7 @@ public class IPCController {
     public void start() throws IOException {
         //Execute and grab the process
         _process = Runtime.getRuntime().exec(_cmd);
+        System.out.println(_cmd);
         //Establish IO communication streams
         _reader = new BufferedReader(new InputStreamReader(_process.getInputStream()));
         _writer = new BufferedWriter(new OutputStreamWriter(_process.getOutputStream()));
@@ -64,7 +65,6 @@ public class IPCController {
         }
 
         String message = msg.endsWith("\n") ? msg : msg + "\n";
-
         _writer.write(message);
         _writer.flush();
     }

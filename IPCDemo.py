@@ -8,5 +8,3 @@ while s not in ["quit"]:
     sys.stdout.write(s.upper() + '\n')
     sys.stdout.flush()
     s = sys.stdin.readline().strip()
-
-
