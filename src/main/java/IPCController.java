@@ -96,4 +96,13 @@ public class IPCController {
 
         return toReturn;
     }
+
+    public void setEndOfMessageSequence(String seq) {
+        if (seq != "")
+            _endSequence = seq;
+        else
+            throw new IllegalArgumentException("End-of-message sequence cannot be the empty string.");
+    }
+
+    
 }
