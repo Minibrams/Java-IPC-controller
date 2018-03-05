@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c0994d4-a262-44e0-a61c-c6e1a548e566" name="Default" comment="" />
+    <list default="true" id="8c0994d4-a262-44e0-a61c-c6e1a548e566" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/IPCController.java" afterPath="$PROJECT_DIR$/src/main/java/IPCController.java" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/IPCController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
               <folding>
                 <element signature="e#697#698#0" expanded="true" />
                 <element signature="e#726#727#0" expanded="true" />
@@ -253,12 +255,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520211409046</updated>
-      <workItem from="1520211412175" duration="1085000" />
+      <workItem from="1520211412175" duration="1406000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1085000" />
+    <option name="totallyTimeSpent" value="1406000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-75" width="1936" height="1066" extended-state="6" />
@@ -325,7 +327,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/IPCController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
           <folding>
             <element signature="e#697#698#0" expanded="true" />
             <element signature="e#726#727#0" expanded="true" />

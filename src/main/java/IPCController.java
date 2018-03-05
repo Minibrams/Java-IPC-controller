@@ -21,8 +21,10 @@ public class IPCController {
 
     /** Executes the given executable and opens IO streams for IPC. */
     public void start() throws IOException {
-
+        //Execute and grab the process
         Process proc = Runtime.getRuntime().exec(cmd);
-
+        //Establish IO communication streams
+        _reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+        _writer = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream()));
     }
 }
