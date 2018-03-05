@@ -9,14 +9,14 @@ public class IPCController {
     private String _cmd;
     private Process _process;
     private String _endSequence;
+    private char pathDeliminator;
 
     /** Returns an IPCController instance.
      *  @param file Name of the file (executable)
      *  @param compiler Name of the compiler/interpreter that should be used to execute the given file.
      *  @param endSequence Name of the character sequence used by both processes to signal the end of a message stream. */
     public IPCController(String file, String compiler, String endSequence) {
-        String dir = System.getProperty("user.dir");
-        _cmd = compiler + " \"" + dir + "\\" + file + "\"";
+        _cmd = compiler + " " + file;
         if (!endSequence.equals(""))
             _endSequence = endSequence;
         else
