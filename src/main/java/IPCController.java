@@ -3,8 +3,26 @@ import java.io.*;
 public class IPCController {
     private BufferedReader _reader;
     private BufferedWriter _writer;
+    private String cmd;
 
-    public IPCController(String executable) {
-        
+    /** Returns an IPCController instance.
+     *  @param file Name of the file (executable)
+     *  @param compiler Name of the compiler/interpreter that should be used to execute the given file. */
+    public IPCController(String file, String compiler) {
+        String dir = System.getProperty("user.dir");
+        cmd = compiler + " " + dir + "\\" + file;
+    }
+
+    /** Returns an IPCController instance.
+     *  @param command The command for starting a process to which IO streams can be established. */
+    public IPCController(String command) {
+        cmd = command;
+    }
+
+    /** Executes the given executable and opens IO streams for IPC. */
+    public void start() throws IOException {
+
+        Process proc = Runtime.getRuntime().exec(cmd);
+
     }
 }
