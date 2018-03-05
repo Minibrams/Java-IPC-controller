@@ -26,6 +26,8 @@ public class Main {
             for (String line : returned)
                 System.out.println(line);
 
+            ipc.stop();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
