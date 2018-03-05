@@ -2,6 +2,7 @@
 import java.io.*;
 import java.util.ArrayList;
 
+/** Facilitates IPC communication with another process. Assumes that messages consists of new-line-separated strings. */
 public class IPCController {
     private BufferedReader _reader;
     private BufferedWriter _writer;
@@ -16,7 +17,7 @@ public class IPCController {
     public IPCController(String file, String compiler, String endSequence) {
         String dir = System.getProperty("user.dir");
         _cmd = compiler + " " + dir + "\\" + file;
-        if (endSequence != "")
+        if (!endSequence.equals(""))
             _endSequence = endSequence;
         else
             throw new IllegalArgumentException("End-of-message sequence cannot be the empty string.");
@@ -52,20 +53,25 @@ public class IPCController {
         _process.destroy();
     }
 
-    /** Writes a message followed by a newline character to a process. Can only be called after start() has been called. */
+    /** Writes a string followed by a new-line character to a process.
+     *  If the input string does not end with a new-line character, one will be added before writing to the output stream.
+     *  Can only be called after start() has been called. */
     public void writeLine(String msg) throws IOException {
-        write(msg + "\n");
-    }
-
-    /** Writes a message to a process. Can only be called after start() has been called. */
-    public void write(String msg) throws IOException {
         if (_process == null) {
             throw new IOException("Unable to write: IPCController is not connected to a running process.");
         } else if (_writer == null) {
             throw new IOException("Unable to write: IPCController does not have an open output stream.");
         }
 
-        _writer.write(msg);
+        String message = msg.endsWith("\n") ? msg : msg + "\n";
+
+        _writer.write(message);
+    }
+
+    /** Writes a message to the running process. Can only be called after start() has been called.*/
+    public void writeMessage(ArrayList<String> msg) throws IOException {
+        for (String line : msg)
+            writeLine(line);
     }
 
     /** Reads a line from the input stream. */
@@ -89,7 +95,7 @@ public class IPCController {
         ArrayList<String> toReturn = new ArrayList();
         String current = "";
 
-        while (current != _endSequence) {
+        while (!current.equals(_endSequence)) {
             current = _reader.readLine();
             toReturn.add(current);
         }
@@ -97,12 +103,24 @@ public class IPCController {
         return toReturn;
     }
 
+    /** Defines the end-of-message sequence.
+     *  Allows entire messages to be read through one call of readMessage(). */
     public void setEndOfMessageSequence(String seq) {
-        if (seq != "")
+        if (!seq.equals(""))
             _endSequence = seq;
         else
             throw new IllegalArgumentException("End-of-message sequence cannot be the empty string.");
     }
 
-    
+    /** Sends a message to the running process and returns the response message. */
+    public ArrayList<String> pipeMessage(ArrayList<String> msg) throws IOException {
+        writeMessage(msg);
+        return readMessage();
+    }
+
+    /** Sends a line to the running process and returns the response message. */
+    public ArrayList<String> pipeLine(String msg) throws IOException {
+        writeLine(msg);
+        return readMessage();
+    }
 }
