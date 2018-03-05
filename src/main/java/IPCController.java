@@ -96,24 +96,17 @@ public class IPCController {
         ArrayList<String> toReturn = new ArrayList();
         String current = "";
 
-        try {
-            while (!current.equals(_endSequence)) {
-                current = readLine();
-                toReturn.add(current);
-            }
-
-            String[] arr = new String[toReturn.size()];
-            return toReturn.toArray(arr);
-
-        } catch (NullPointerException e) {
-            System.out.println("------------------------------------");
-            System.out.println("       CLIENT PROCESS ENDED");
-            System.out.println("           Ending read...");
-            System.out.println("------------------------------------");
-
-            String[] arr = new String[toReturn.size()];
-            return toReturn.toArray(arr);
+        // Read until we see the end sequence
+        while (!current.equals(_endSequence)) {
+            current = readLine();
+            // When the input stream is closed, next line is null. Break the loop.
+            if (current == null) break;
+            // Otherwise, read the input
+            toReturn.add(current);
         }
+
+        String[] arr = new String[toReturn.size()];
+        return toReturn.toArray(arr);
     }
 
     /** Defines the end-of-message sequence.

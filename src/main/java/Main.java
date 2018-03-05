@@ -2,6 +2,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+
         IPCController ipc = new IPCController("IPCDemo.py", "python", "quit");
 
         String[] message = new String[] {
@@ -22,6 +23,7 @@ public class Main {
                 System.out.println(line);
 
             String[] returned = ipc.pipeMessage(message);
+
             System.out.println("Received response from Python process:");
             for (String line : returned)
                 System.out.println(line);
