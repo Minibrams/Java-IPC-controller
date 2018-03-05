@@ -9,10 +9,9 @@ public class IPCController {
     private String _cmd;
     private Process _process;
     private String _endSequence;
-    private char pathDeliminator;
 
     /** Returns an IPCController instance.
-     *  @param file Name of the file (executable)
+     *  @param file Path to the file to be executed.
      *  @param compiler Name of the compiler/interpreter that should be used to execute the given file.
      *  @param endSequence Name of the character sequence used by both processes to signal the end of a message stream. */
     public IPCController(String file, String compiler, String endSequence) {
@@ -24,11 +23,10 @@ public class IPCController {
     }
 
     /** Returns an IPCController instance.
-     *  @param file Name of the file (executable)
+     *  @param file Path to the file to be executed.
      *  @param compiler Name of the compiler/interpreter that should be used to execute the given file. */
     public IPCController(String file, String compiler) {
-        String dir = System.getProperty("user.dir");
-        _cmd = compiler + " " + dir + "\\" + file;
+        _cmd = compiler + " " + file;
     }
 
     /** Returns an IPCController instance.
@@ -41,7 +39,6 @@ public class IPCController {
     public void start() throws IOException {
         //Execute and grab the process
         _process = Runtime.getRuntime().exec(_cmd);
-        System.out.println(_cmd);
         //Establish IO communication streams
         _reader = new BufferedReader(new InputStreamReader(_process.getInputStream()));
         _writer = new BufferedWriter(new OutputStreamWriter(_process.getOutputStream()));
