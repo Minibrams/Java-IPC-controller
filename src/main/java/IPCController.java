@@ -41,6 +41,7 @@ public class IPCController {
     public void start() throws IOException {
         //Execute and grab the process
         _process = Runtime.getRuntime().exec(_cmd);
+        System.out.println("PROCESS: " + _process.toString());
         //Establish IO communication streams
         _reader = new BufferedReader(new InputStreamReader(_process.getInputStream()));
         _writer = new BufferedWriter(new OutputStreamWriter(_process.getOutputStream()));
@@ -66,6 +67,7 @@ public class IPCController {
         String message = msg.endsWith("\n") ? msg : msg + "\n";
 
         _writer.write(message);
+        _writer.flush();
     }
 
     /** Writes a message to the running process. Can only be called after start() has been called.*/
@@ -95,12 +97,20 @@ public class IPCController {
         ArrayList<String> toReturn = new ArrayList();
         String current = "";
 
-        while (!current.equals(_endSequence)) {
-            current = _reader.readLine();
-            toReturn.add(current);
-        }
+        try {
+            while (!current.equals(_endSequence)) {
+                current = readLine();
+                toReturn.add(current);
+            }
+            return toReturn;
 
-        return toReturn;
+        } catch (NullPointerException e) {
+            System.out.println("------------------------------------");
+            System.out.println("       CLIENT PROCESS ENDED");
+            System.out.println("           Ending read...");
+            System.out.println("------------------------------------");
+            return toReturn;
+        }
     }
 
     /** Defines the end-of-message sequence.
